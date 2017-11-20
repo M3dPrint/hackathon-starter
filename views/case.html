@@ -150,7 +150,12 @@
 				    		<div class="input-append">
 							  <input class="span2" id="text-string" type="text" placeholder="add text here..."><button id="add-text" class="btn" title="Add text"><i class="icon-share-alt"></i></button>
 							  <hr>
-							  <button class="btn btn-primary">Upload</button>
+
+								<form method="post" enctype="multipart/form-data" action="/upload">
+									<input type="file" name="file">
+									<button class="btn btn-primary">Upload</button>
+								</form>
+							  //<button class="btn btn-primary">Upload</button>
 							  <hr>
 							</div>
 				    		<img style="cursor:pointer;width:90px;height:120px;" class="img-polaroid" src="/img/phones/designs/1.jpg">

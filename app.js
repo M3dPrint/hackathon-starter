@@ -32,6 +32,7 @@ dotenv.load({ path: '.env.example' });
  * Controllers (route handlers).
  */
 const homeController = require('./controllers/home');
+//const uploadController = require('./controllers/upload');
 const userController = require('./controllers/user');
 const apiController = require('./controllers/api');
 const contactController = require('./controllers/contact');
@@ -70,6 +71,9 @@ app.set('view engine', 'html');
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
 */
+
+
+
 app.use(expressStatusMonitor());
 app.use(compression());
 app.use(sass({
@@ -126,6 +130,8 @@ app.use(express.static(path.join(__dirname, 'public'), { maxAge: 31557600000 }))
  * Primary app routes.
  */
 app.get('/', homeController.index);
+// app.get('/', uploadController.index);
+// app.post('/',uploadController,index);
 app.get('/login', userController.getLogin);
 app.post('/login', userController.postLogin);
 app.get('/logout', userController.logout);
@@ -228,6 +234,9 @@ app.get('/auth/pinterest/callback', passport.authorize('pinterest', { failureRed
  * Error Handler.
  */
 app.use(errorHandler());
+
+//app.use(express.bodyParser({uploadDir:'/path/to/temporary/directory/to/store/uploaded/files'}));
+
 
 /**
  * Start Express server.

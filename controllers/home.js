@@ -4,6 +4,6 @@
  */
 exports.index = (req, res) => {
   res.render('case', {
-    title: 'Home'
+    title: 'Customize your phone cases'
   });
 };
