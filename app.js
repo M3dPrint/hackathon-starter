@@ -22,6 +22,7 @@ const multer = require('multer');
 
 const upload = multer({ dest: path.join(__dirname, 'uploads') });
 
+
 /**
  * Load environment variables from .env file, where API keys and passwords are configured.
  */
@@ -61,8 +62,14 @@ mongoose.connection.on('error', (err) => {
  */
 app.set('host', process.env.OPENSHIFT_NODEJS_IP || '0.0.0.0');
 app.set('port', process.env.PORT || process.env.OPENSHIFT_NODEJS_PORT || 8080);
+
+app.engine('html', require('ejs').renderFile);
+app.set('view engine', 'html');
+
+/*
 app.set('views', path.join(__dirname, 'views'));
-app.set('view engine', 'pug');
+app.set('view engine', 'ejs');
+*/
 app.use(expressStatusMonitor());
 app.use(compression());
 app.use(sass({

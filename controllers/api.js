@@ -24,6 +24,14 @@ const foursquare = require('node-foursquare')({
 foursquare.Venues = bluebird.promisifyAll(foursquare.Venues);
 foursquare.Users = bluebird.promisifyAll(foursquare.Users);
 
+/***
+ * router  index
+ *
+ */
+exports.index = function(req, res){
+    res.render('index', { title: 'ejs' });};
+
+
 /**
  * GET /api
  * List of API examples.
