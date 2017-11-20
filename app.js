@@ -23,6 +23,9 @@ const multer = require('multer');
 const upload = multer({ dest: path.join(__dirname, 'uploads') });
 
 
+
+
+
 /**
  * Load environment variables from .env file, where API keys and passwords are configured.
  */
@@ -32,8 +35,8 @@ dotenv.load({ path: '.env.example' });
  * Controllers (route handlers).
  */
 const homeController = require('./controllers/home');
-//const uploadController = require('./controllers/upload');
-const userController = require('./controllers/user');
+// const uploadController = require('./controllers/upload');
+// const userController = require('./controllers/user');
 const apiController = require('./controllers/api');
 const contactController = require('./controllers/contact');
 
@@ -97,15 +100,15 @@ app.use(session({
 app.use(passport.initialize());
 app.use(passport.session());
 app.use(flash());
-app.use((req, res, next) => {
-  if (req.path === '/api/upload') {
-    next();
-  } else {
-    lusca.csrf()(req, res, next);
-  }
-});
-app.use(lusca.xframe('SAMEORIGIN'));
-app.use(lusca.xssProtection(true));
+// app.use((req, res, next) => {
+//   if (req.path === '/api/upload') {
+//     next();
+//   } else {
+//     lusca.csrf()(req, res, next);
+//   }
+// });
+// app.use(lusca.xframe('SAMEORIGIN'));
+// app.use(lusca.xssProtection(true));
 app.use((req, res, next) => {
   res.locals.user = req.user;
   next();
@@ -130,8 +133,8 @@ app.use(express.static(path.join(__dirname, 'public'), { maxAge: 31557600000 }))
  * Primary app routes.
  */
 app.get('/', homeController.index);
-// app.get('/', uploadController.index);
-// app.post('/',uploadController,index);
+ // app.get('/upload', uploadController.upload);
+ // app.post('/upload',uploadController.upload);
 app.get('/login', userController.getLogin);
 app.post('/login', userController.postLogin);
 app.get('/logout', userController.logout);
@@ -235,7 +238,7 @@ app.get('/auth/pinterest/callback', passport.authorize('pinterest', { failureRed
  */
 app.use(errorHandler());
 
-//app.use(express.bodyParser({uploadDir:'/path/to/temporary/directory/to/store/uploaded/files'}));
+// app.use(express.bodyParser({uploadDir:'/public/img/phones/designs'}));
 
 
 /**
