@@ -1,3 +1,53 @@
+
+const multer = require('multer');
+
+var storage = multer.diskStorage({
+    destination: function (req, file, cb) {
+        cb(null, 'public/uploads')
+    },
+    filename: function (req, file, cb) {
+        cb(null, file.fieldname + '-' + Date.now()+'.jpg')
+    }
+});
+// console.log(Date.now());
+var upload = multer({ storage: storage }).array('file');
+
+exports.upload = (req, res) => {
+ upload(req, res,function (err) {
+        // console.log();
+        // console.log(req.files[0].filename);
+        if (err) {
+            // An error occurred when uploading
+            return res.json({
+                err: err
+
+            })
+        }else{
+
+            return res.json({file:req.files[0].filename})
+
+            console.log(" everything is working");
+
+        }
+    });
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 //
 // const bodyParser = require("body-parser");
 //
