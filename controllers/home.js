@@ -3,7 +3,7 @@
  * Home page.
  */
 exports.index = (req, res) => {
-  res.render('upload', {
+  res.render('case', {
     title: 'Customize your phone cases'
   });
 };

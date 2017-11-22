@@ -80,6 +80,7 @@ var line4;
 		      }
 	  	});
 	  	$(".img-polaroid").click(function(e){
+
 	  		var el = e.target;
 	  		/*temp code*/
 	  		var offset = 50;

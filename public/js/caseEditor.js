@@ -115,19 +115,36 @@ var line4;
 		line2 = new fabric.Line([224,0,225,450], {"stroke":"#000000", "strokeWidth":1,hasBorders:false,hasControls:false,hasRotatingPoint:false,selectable:false});
 		line3 = new fabric.Line([0,0,0,450], {"stroke":"#000000", "strokeWidth":1,hasBorders:false,hasControls:false,hasRotatingPoint:false,selectable:false});
 		line4 = new fabric.Line([0,450,225,449], {"stroke":"#000000", "strokeWidth":1,hasBorders:false,hasControls:false,hasRotatingPoint:false,selectable:false});
-		
+
 	  	$(".img-polaroid").click(function(e){
-	  		var el = e.target;	  		
+	  		var el = e.target;
 	  		var design = $(this).attr("src");
 	  		$('#phoneDiv').css({
 				'backgroundImage': 'url(' + design +')',
 				'backgroundRepeat': 'no-repeat',
 				'backgroundPosition': 'top center',
 				'background-size': '100% 100%'
-					
+
 			});
 		 //  document.getElementById("phoneDiv").style.backgroundImage="url("+ design +")";
-	  	});	  		  
+	  	});
+
+	  	// $("div.input-append").on('click','inputname="image_file[]"',function(e){
+            $("#imgparent").on("click","img.imgclass",function(e){
+
+			var el = e.target;
+            var design = $(this).attr("src");
+            $('#phoneDiv').css({
+                'backgroundImage': 'url(' + design +')',
+                'backgroundRepeat': 'no-repeat',
+                'backgroundPosition': 'top center',
+                'background-size': '100% 100%'
+
+			});
+        console.log("working something");
+		});
+        // });
+
 	  document.getElementById('remove-selected').onclick = function() {		  
 		    var activeObject = canvas.getActiveObject(),
 		        activeGroup = canvas.getActiveGroup();
