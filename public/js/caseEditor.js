@@ -264,82 +264,123 @@ var line4;
         });
         $('button').on('click', function(e) {
 
-            function b64toBlob(b64Data, contentType, sliceSize) {
-                contentType = contentType || '';
-                sliceSize = sliceSize || 512;
+//             function b64toBlob(b64Data, contentType, sliceSize) {
+//                 contentType = contentType || '';
+//                 sliceSize = sliceSize || 512;
+//
+//                 var byteCharacters = atob(b64Data);
+//                 var byteArrays = [];
+//
+//                 for (var offset = 0; offset < byteCharacters.length; offset += sliceSize) {
+//                     var slice = byteCharacters.slice(offset, offset + sliceSize);
+//
+//                     var byteNumbers = new Array(slice.length);
+//                     for (var i = 0; i < slice.length; i++) {
+//                         byteNumbers[i] = slice.charCodeAt(i);
+//                     }
+//
+//                     var byteArray = new Uint8Array(byteNumbers);
+//
+//                     byteArrays.push(byteArray);
+//                 }
+//
+//                 var blob = new Blob(byteArrays, {type: contentType});
+//                 return blob;
+//             }
+//
+//
+//
+//
+//             // console.log(canvas.toDataURL());
+//             var data = canvas.toDataURL();
+//
+//             var form = document.getElementById("wtf");
+//
+//
+//             var block = data.split(";");
+// // Get the content type of the image
+//             var contentType = block[0].split(":")[1];// In this case "image/gif"
+// // get the real base64 content of the file
+//             var realData = block[1].split(",")[1];// In this case "R0lGODlhPQBEAPeoAJosM...."
+//
+// // Convert it to a blob to upload
+//             var blob = b64toBlob(realData, contentType);
+//
+// // Create a FormData and append the file with "image" as parameter name
+//             var formDataToUpload = new FormData(form);
+//             formDataToUpload.append("image", blob);
+//
+// console.log(formDataToUpload)
+//             // var base64Data = req.body.replace(/^data:image\/png;base64,/, "");
+//             //
+//             // require("fs").writeFile("out.png", base64Data, 'base64', function(err) {
+//             //     console.log(err);
+//             // });
+//
+//             // var blob = dataURItoBlob(data);
+//             // // var fd = new FormData(blob);
+//             // var form = document.getElementById("myAwesomeForm");
+//             // var formDataToUpload = new FormData(form);
+//             // formDataToUpload.append("image", blob);
+//             $.ajax({
+//                 url:"/uploadFinal",
+//                 data: formDataToUpload,// Add as Data the Previously create formData
+//                 type:"POST",
+//                 // contentType:false,
+//                 processData:false,
+//                 // cache:false,
+//                 // dataType:"json", // Change this according to your response from the server.
+//                 error:function(err){
+//                     console.error(err);
+//                 },
+//                 success:function(data){
+//                     console.log(data);
+//                 },
+//                 complete:function(){
+//                     console.log("Request finished.");
+//                 }
+//             });
 
-                var byteCharacters = atob(b64Data);
-                var byteArrays = [];
-
-                for (var offset = 0; offset < byteCharacters.length; offset += sliceSize) {
-                    var slice = byteCharacters.slice(offset, offset + sliceSize);
-
-                    var byteNumbers = new Array(slice.length);
-                    for (var i = 0; i < slice.length; i++) {
-                        byteNumbers[i] = slice.charCodeAt(i);
-                    }
-
-                    var byteArray = new Uint8Array(byteNumbers);
-
-                    byteArrays.push(byteArray);
-                }
-
-                var blob = new Blob(byteArrays, {type: contentType});
-                return blob;
-            }
 
 
 
 
-            // console.log(canvas.toDataURL());
-            var data = canvas.toDataURL();
-
-            var form = document.getElementById("wtf");
 
 
-            var block = data.split(";");
-// Get the content type of the image
-            var contentType = block[0].split(":")[1];// In this case "image/gif"
-// get the real base64 content of the file
-            var realData = block[1].split(",")[1];// In this case "R0lGODlhPQBEAPeoAJosM...."
 
-// Convert it to a blob to upload
-            var blob = b64toBlob(realData, contentType);
 
-// Create a FormData and append the file with "image" as parameter name
-            var formDataToUpload = new FormData(form);
-            formDataToUpload.append("image", blob);
 
-console.log(formDataToUpload)
-            // var base64Data = req.body.replace(/^data:image\/png;base64,/, "");
-            //
-            // require("fs").writeFile("out.png", base64Data, 'base64', function(err) {
-            //     console.log(err);
-            // });
 
-            // var blob = dataURItoBlob(data);
-            // // var fd = new FormData(blob);
-            // var form = document.getElementById("myAwesomeForm");
-            // var formDataToUpload = new FormData(form);
-            // formDataToUpload.append("image", blob);
+
+
+
+
+
+
+
+
+
+
+
+            var img = canvas.toDataURL("image/png");
+            var filename = 'image';
+            var formdata = new FormData();
+            formdata.append(filename, img);
+
             $.ajax({
-                url:"/uploadFinal",
-                data: formDataToUpload,// Add as Data the Previously create formData
-                type:"POST",
-                // contentType:false,
-                processData:false,
-                // cache:false,
-                // dataType:"json", // Change this according to your response from the server.
-                error:function(err){
-                    console.error(err);
+                url: '/uploadFinal',
+                type: "POST",
+                data: formdata,
+                processData: false,
+                contentType: false,
+                success: function (result) {
+                    console.log("Upload complete!");
                 },
-                success:function(data){
-                    console.log(data);
-                },
-                complete:function(){
-                    console.log("Request finished.");
+                error: function (error) {
+                    console.log("Something went wrong!");
                 }
             });
+
 
         });
 

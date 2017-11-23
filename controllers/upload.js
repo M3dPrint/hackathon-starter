@@ -33,10 +33,10 @@ exports.upload = (req, res) => {
 
 exports.uploadFinal = (req, res) => {
 
-    console.log(Object.keys( req.body))
-    // upload(req, res,function (err) {
+    console.log( req.body, req.files, req.file)
+    upload(req, res,function (err) {
         // console.log();
-        // console.log(req.file, req.image, req.body, req.files)
+        console.log(req.file, req.image, req.body, req.files)
         if (false) {
             // An error occurred when uploading
             return res.json({
@@ -45,11 +45,25 @@ exports.uploadFinal = (req, res) => {
             })
         }else{
 
+
+
+            var fs = require('fs');
+            // var string = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAUAAAAFCAYAAACNbyblAAAAHElEQVQI12P4//8/w38GIAXDIBKE0DHxgljNBAAO9TXL0Y4OHwAAAABJRU5ErkJggg==";
+            var regex = /^data:.+\/(.+);base64,(.*)$/;
+
+            var matches = req.body.image.match(regex);
+            var ext = matches[1];
+            var data = matches[2];
+            var buffer = new Buffer(data, 'base64');
+            fs.writeFileSync('data.' + ext, buffer);
+
+
+
             return res.json({file:""})
 
             console.log(" everything is working");
         }
-    // });
+    });
 }
 
 
