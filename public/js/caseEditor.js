@@ -250,17 +250,119 @@ var line4;
            fabric.Image.fromURL(design, function (myImg)
 		   {
                 //i create an extra var for to change some image properties
-                var img1 = myImg.set({left: 250, top: 0, width: 450, height: 450, centeredRotation: true, centeredScaling: false});
-               // myImg.scaleToWidth(canvas.getWidth());
-
+                var myImg = myImg.set({left: canvas.getWidth()/2, top: canvas.getHeight()/2,
+					scaleX:  canvas.getWidth()/ myImg.width,
+                    scaleY: canvas.getHeight() / myImg.height
+                    // width:500
+                    // height:10
+                });
+                // myImg.scaleToWidth(canvas.getWidth());
+                myImg.setWidth(1000);
+               // myImg.setHeight(100);
                canvas.add(myImg);
 		   });
+        });
+        $('button').on('click', function(e) {
 
+            function b64toBlob(b64Data, contentType, sliceSize) {
+                contentType = contentType || '';
+                sliceSize = sliceSize || 512;
+
+                var byteCharacters = atob(b64Data);
+                var byteArrays = [];
+
+                for (var offset = 0; offset < byteCharacters.length; offset += sliceSize) {
+                    var slice = byteCharacters.slice(offset, offset + sliceSize);
+
+                    var byteNumbers = new Array(slice.length);
+                    for (var i = 0; i < slice.length; i++) {
+                        byteNumbers[i] = slice.charCodeAt(i);
+                    }
+
+                    var byteArray = new Uint8Array(byteNumbers);
+
+                    byteArrays.push(byteArray);
+                }
+
+                var blob = new Blob(byteArrays, {type: contentType});
+                return blob;
+            }
+
+
+
+
+            // console.log(canvas.toDataURL());
+            var data = canvas.toDataURL();
+
+            var form = document.getElementById("wtf");
+
+
+            var block = data.split(";");
+// Get the content type of the image
+            var contentType = block[0].split(":")[1];// In this case "image/gif"
+// get the real base64 content of the file
+            var realData = block[1].split(",")[1];// In this case "R0lGODlhPQBEAPeoAJosM...."
+
+// Convert it to a blob to upload
+            var blob = b64toBlob(realData, contentType);
+
+// Create a FormData and append the file with "image" as parameter name
+            var formDataToUpload = new FormData(form);
+            formDataToUpload.append("image", blob);
+
+console.log(formDataToUpload)
+            // var base64Data = req.body.replace(/^data:image\/png;base64,/, "");
+            //
+            // require("fs").writeFile("out.png", base64Data, 'base64', function(err) {
+            //     console.log(err);
+            // });
+
+            // var blob = dataURItoBlob(data);
+            // // var fd = new FormData(blob);
+            // var form = document.getElementById("myAwesomeForm");
+            // var formDataToUpload = new FormData(form);
+            // formDataToUpload.append("image", blob);
+            $.ajax({
+                url:"/uploadFinal",
+                data: formDataToUpload,// Add as Data the Previously create formData
+                type:"POST",
+                // contentType:false,
+                processData:false,
+                // cache:false,
+                // dataType:"json", // Change this according to your response from the server.
+                error:function(err){
+                    console.error(err);
+                },
+                success:function(data){
+                    console.log(data);
+                },
+                complete:function(){
+                    console.log("Request finished.");
+                }
+            });
 
         });
 
-        $("button").click(function (e) {
-            console.log(canvas.toDataURL());
+
+
+
+
+        //     var saveImg
+        //  $('button').on('click',saveImg, function(e){
+        // // $("button").click(function (e) {
+        //     console.log(canvas.toDataURL());
+        //     saveImg = canvas.toDataURL();
+        //     function saveImg(){
+        //         console.log('png');
+        //         if (!fabric.Canvas.supports('toDataURL')) {
+        //             alert('This browser doesn\'t provide means to serialize canvas to an image');
+        //         }
+        //         else {
+        //             window.open(canvas.toDataURL('saveImg'));
+        //         }
+        //     }
+
+
 
 
             document.getElementById('remove-selected').onclick = function () {
@@ -482,4 +584,5 @@ var line4;
                 activeObject.applyFilters(canvas.renderAll.bind(canvas));
             }
         }
-    })
+
+

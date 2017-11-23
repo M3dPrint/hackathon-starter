@@ -27,11 +27,29 @@ exports.upload = (req, res) => {
             return res.json({file:req.files[0].filename})
 
             console.log(" everything is working");
-
-
-
         }
-    });
+     });
+ }
+
+exports.uploadFinal = (req, res) => {
+
+    console.log(Object.keys( req.body))
+    // upload(req, res,function (err) {
+        // console.log();
+        // console.log(req.file, req.image, req.body, req.files)
+        if (false) {
+            // An error occurred when uploading
+            return res.json({
+                err: err
+
+            })
+        }else{
+
+            return res.json({file:""})
+
+            console.log(" everything is working");
+        }
+    // });
 }
 
 
