@@ -360,26 +360,16 @@ var line4;
 
 
 
+            var cvas = document.getElementById('tcanvas');
 
+            cvas.toBlob(function(blob){
+                var form = new FormData(),
+                    request = new XMLHttpRequest();
 
-            var img = canvas.toDataURL("image/png");
-            var filename = 'image';
-            var formdata = new FormData();
-            formdata.append(filename, img);
-
-            $.ajax({
-                url: '/uploadFinal',
-                type: "POST",
-                data: formdata,
-                processData: false,
-                contentType: false,
-                success: function (result) {
-                    console.log("Upload complete!");
-                },
-                error: function (error) {
-                    console.log("Something went wrong!");
-                }
-            });
+                form.append("file", blob, "filename.png");
+                request.open("POST", "/upload", true);
+                request.send(form);
+            }, "image/png");
 
 
         });
