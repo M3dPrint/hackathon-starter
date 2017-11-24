@@ -1,4 +1,6 @@
-
+"use strict";
+var fs = require('fs');
+var ImageTracer = require("imagetracerjs");
 const multer = require('multer');
 
 var storage = multer.diskStorage({
@@ -6,7 +8,7 @@ var storage = multer.diskStorage({
         cb(null, 'public/uploads')
     },
     filename: function (req, file, cb) {
-        cb(null, file.fieldname + '-' + Date.now()+'.jpg')
+        cb(null, file.fieldname + '-' + Date.now()+'.png')
     }
 });
 // console.log(Date.now());
@@ -25,46 +27,73 @@ exports.upload = (req, res) => {
         }else{
 
             return res.json({file:req.files[0].filename})
+             console.log(" everything is working")
 
-            console.log(" everything is working");
+
         }
-     });
- }
+ });
+}
+
+
 
 exports.uploadFinal = (req, res) => {
 
-    console.log( req.body, req.files, req.file)
-    upload(req, res,function (err) {
-        // console.log();
-        console.log(req.file, req.image, req.body, req.files)
+    // console.log()
+
+    upload(req, res, function (err) {
+        // console.log(arguments);
+        console.log(req.files, req.body)
+        // console.log(file);
         if (false) {
             // An error occurred when uploading
             return res.json({
                 err: err
-
             })
-        }else{
+            console.log("upload final working");
+        }
+        else {
+            // return res.json({file: ""})
 
+            var PNGReader = require('../node_modules/imagetracerjs/nodetest/PNGReader');
+            fs.readFile(require("path").join(__dirname,"/../public/uploads/"+ req.files[0].filename), // Input file path
+                function (err, bytes) {
+                    if (err) {
+                        throw err;
+                    }
 
-
-            // var fs = require('fs');
-            // // var string = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAUAAAAFCAYAAACNbyblAAAAHElEQVQI12P4//8/w38GIAXDIBKE0DHxgljNBAAO9TXL0Y4OHwAAAABJRU5ErkJggg==";
-            // var regex = /^data:.+\/(.+);base64,(.*)$/;
-            //
-            // var matches = req.body.image.match(regex);
-            // var ext = matches[1];
-            // var data = matches[2];
-            // var buffer = new Buffer(data, 'base64');
-            // fs.writeFileSync('data.' + ext, buffer);
-
-
-
-            return res.json({file:""})
-
-            console.log(" everything is working");
+                    var reader = new PNGReader(bytes);
+                    reader.parse(function (err, png) {
+                        if (err) {
+                            throw err;
+                        }
+                        // creating an ImageData object
+                        var myImageData = {width: png.width, height: png.height, data: png.pixels};
+                        // tracing to SVG string
+                        var options = {ltres: 0.1}; // optional
+                        var svgstring = ImageTracer.imagedataToSVG(myImageData, options);
+                        // writing to file
+                        fs.writeFile(
+                            './public/downloads' + '/test1.svg', // Output file path
+                            svgstring,
+                            function (err) {
+                                if (err) {
+                                    throw err;
+                                }
+                                console.log('public/downloads' + '/test1.svg was saved!');
+                            }
+                        );
+                    });// End of reader.parse()
+                }// End of readFile callback()
+            );// End of fs.readFile()
         }
     });
 }
+
+
+
+
+
+
 
 
 
