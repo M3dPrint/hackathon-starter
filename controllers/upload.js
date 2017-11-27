@@ -73,13 +73,13 @@ exports.uploadFinal = (req, res) => {
                         var svgstring = ImageTracer.imagedataToSVG(myImageData, options);
                         // writing to file
                         fs.writeFile(
-                            './public/downloads' + '/test1.svg', // Output file path
+                            './public/downloads' + '/test1.svg'+ Date.now(), // Output file path
                             svgstring,
                             function (err) {
                                 if (err) {
                                     throw err;
                                 }
-                                console.log('public/downloads' + '/test1.svg was saved!');
+                                console.log('public/downloads' + '/test1.svg was saved!' + Date.now());
                             }
                         );
                     });// End of reader.parse()

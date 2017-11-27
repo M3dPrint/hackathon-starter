@@ -6,6 +6,18 @@ var line1;
 var line2;
 var line3;
 var line4;
+function applyFilter(index, filter) {
+    // var obj = canvas.getActiveObject();
+    // obj.filters[index] = filter;
+    // var timeStart = +new Date();
+    // obj.applyFilters();
+    // var timeEnd = +new Date();
+    // var dimString = canvas.getActiveObject().width + ' x ' +
+    //     canvas.getActiveObject().height;
+    // $('bench').innerHTML = dimString + 'px ' +
+    //     parseFloat(timeEnd-timeStart) + 'ms';
+    // canvas.renderAll();
+}
  	$(document).ready(function() {
         //setup front side canvas
         canvas = new fabric.Canvas('tcanvas', {
@@ -245,42 +257,62 @@ var line4;
         $("#imgparent").on("click", "img.imgclass", function (e) {
             var el = e.target;
             var design = $(this).attr("src");
-
-            console.log("working something");
+           console.log("working something");
             fabric.Image.fromURL(design, function (myImg) {
                 //i create an extra var for to change some image properties
                 var myImg = myImg.set({
                     left: canvas.getWidth() / 2, top: canvas.getHeight() / 2,
                     scaleX: canvas.getWidth() / myImg.width,
-                    scaleY: canvas.getHeight() / myImg.height
-                    // width:500
-                    // height:10
+                    scaleY: canvas.getHeight() / myImg.height,
+                    originX: 'left',
+                    scaleX : canvas.getWidth()/img.width,   //new update
+                    scaleY: canvas.getHeight()/img.height,   //new update
+                    originY: 'top'
                 });
-                // myImg.scaleToWidth(canvas.getWidth());
-                myImg.setWidth(1000);
-                // myImg.setHeight(100);
-                canvas.add(myImg);
+                myImg.filters.push(new fabric.Image.filters.Grayscale());
+                // // myImg.scaleToWidth(canvas.getWidth());
+                // //myImg.setWidth(1000);
+                // // myImg.setHeight(100);
+                //
+                myImg.applyFilters();
+                myImg.applyFilters(canvas.renderAll.bind(canvas));
+                canvas.add(myImg)
+                    canvas.renderAll();
+                // canvas.isDrawingMode = true;
+                // canvas.freeDrawingCursor = 'crosshair';
+                setTimeout(function() {
+                //     // #2
+                //     console.info('Look at the cursor and try to move mouse now.');
+                //     canvas.freeDrawingCursor = 'default';
+                //     canvas.setCursor(canvas.freeDrawingCursor)
+
+                    canvas.add(new fabric.Line([50, 100, 200, 200], {
+                        left: 170,
+                        top: 150,
+                        stroke: 'red'
+                    }));
+
+                    canvas.renderAll()
+                }, 3000)
+                canvas.renderAll();
+
+
             });
         });
-        $('button').on('click', function (e) {
+        $('#png').on('click', function (e) {
+            canvas.renderAll();
+
             var cvas = document.getElementById('tcanvas');
-            cvas.toBlob(function (blob) {
+               cvas.toBlob(function (blob) {
                 var form = new FormData(),
                     request = new XMLHttpRequest();
                 form.append("file", blob, "filename.png");
                 request.open("POST", "/uploadFinal", true);
                 request.send(form);
             }, "image/png");
+})
 
-        })
-
-
-
-
-
-
-
-            document.getElementById('remove-selected').onclick = function () {
+        document.getElementById('remove-selected').onclick = function () {
                 var activeObject = canvas.getActiveObject(),
                     activeGroup = canvas.getActiveGroup();
                 if (activeObject) {
@@ -578,3 +610,5 @@ var line4;
 //                     console.log("Request finished.");
 //                 }
 //             });
+
+
