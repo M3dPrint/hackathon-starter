@@ -274,13 +274,13 @@ function applyFilter(index, filter) {
                 zIndex:1,
 
             })
-
             canvas.add(img).bringToFront(img); ;
             canvas.renderAll();
             t=img;
+            t.selectable = false;
 
         });
-
+        // canvas.lockMovementX = canvas.lockMovementY = true;
 
 
 
@@ -323,7 +323,9 @@ function applyFilter(index, filter) {
                 myImg.applyFilters();
                 myImg.applyFilters(canvas.renderAll.bind(canvas));
                 canvas.add(myImg)
-                    canvas.renderAll();
+                canvas.bringToFront(t);
+
+                canvas.renderAll();
                 // canvas.isDrawingMode = true;
                 // canvas.freeDrawingCursor = 'crosshair';
                 setTimeout(function() {
@@ -332,12 +334,12 @@ function applyFilter(index, filter) {
                 //     canvas.freeDrawingCursor = 'default';
                 //     canvas.setCursor(canvas.freeDrawingCursor)
 
-                    canvas.add(new fabric.Line([50, 100, 200, 200], {
-                        left: 170,
-                        top: 150,
-                        stroke: 'red'
-                    }));
-                    canvas.bringToFront(t)
+                    // canvas.add(new fabric.Line([50, 100, 200, 200], {
+                    //     left: 170,
+                    //     top: 150,
+                    //     stroke: 'red'
+                    // }));
+
 
 
                     canvas.renderAll()
