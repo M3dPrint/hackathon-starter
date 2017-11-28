@@ -151,6 +151,7 @@
 				    <div class="tab-pane active" id="tab2">
 						<div class="well" style="height:1000px;" id="imgparent">
 				    		<div class="input-append"  id="imgid" >
+								<img style="cursor:pointer;width:90px;height:120px;" class="img-polaroid" src="/img/phones/designs/8.jpg">
 							  <input class="span2" id="text-string" type="text" placeholder="add text here..."><button id="add-text" class="btn" title="Add text"><i class="icon-share-alt"></i></button>
 							  <hr>
 
@@ -173,8 +174,8 @@
 							</div>
 
 				    		<!--<img style="cursor:pointer;width:90px;height:120px;"  src="/img/phones/designs/1.jpg">-->
-				    		<img style="cursor:pointer;width:90px;height:120px;" class="img-polaroid" src="/uploads/file" >
-				    		<img style="cursor:pointer;width:90px;height:120px;" class="img-polaroid" src="/img/phones/designs/7.jpg">
+				    		<!--<img style="cursor:pointer;width:90px;height:120px;" class="img-polaroid" src="/uploads/file" >-->
+				    		<!--<img style="cursor:pointer;width:90px;height:120px;" class="img-polaroid" src="/img/phones/designs/7.jpg">-->
 			                <!--<img style="cursor:pointer;width:90px;height:120px;" class="img-polaroid" src="/img/phones/designs/8.jpg">-->
 			                <!--<img style="cursor:pointer;width:90px;height:120px;" class="img-polaroid" src="/img/phones/designs/2.jpg">-->
 			                <!--<img style="cursor:pointer;width:90px;height:120px;" class="img-polaroid" src="/img/phones/designs/3.jpg">-->
@@ -224,45 +225,47 @@
 							</div>			  
 						</div>												
 					</div>					  		
-				<!--	EDITOR      -->	
+				<!--	EDITOR      -->
 				<div style="background-color: #ffffff;position: relative; top:20px;height:560px;">
-					<div id="phoneDiv" class="page" style="width: 282px; height: 590px; position: relative;left:25%; background-color: rgb(255, 255, 255);">
-						<img id="phone" src="/img/phones/iPhone5A.png"></img>
+					<div id="phoneDiv" class="page" style="width: 282px; height: 590px; position: absolute;left:25%; background-color: rgb(255, 255, 255);">
+						<!--<img id="phone" src="/img/phones/iPhone5A.png"></img>-->
 						<div id="drawingArea" style=" position: absolute;top:0px;left:0px; z-index: 0 ; width: 282px; height:590px; ">
-							<canvas id="tcanvas" width="282" height="590"  style="-webkit-user-select: none;display:block; cursor:default" ></canvas>
+							<canvas id="tcanvas" width="282" height="590"  style="-webkit-user-select: none;display:block; cursor:default;position:absolute;" ></canvas>
 						</div>
-					</div>
-				</div>					
+                    </div>
+				</div>
+            </div>
 				<!--	/EDITOR		-->
 		    </div>
-		
-		    <!--<div class="span3">-->
-		      <!--<div class="well">-->
-		      	<!--<h3>Total Prices</h3>-->
-			      <!--<p>-->
-			      	<!--<table class="table">-->
-			      		<!--<tr>-->
-			      			<!--<td>Phone Case</td>-->
-			      			<!--<td align="right">$19.99</td>-->
-			      		<!--</tr>-->
-			      		<!--<tr>-->
-			      			<!--<td>Head Phone</td>-->
-			      			<!--<td align="right">$4.99</td>-->
-			      		<!--</tr>-->
-			      		<!--<tr>-->
-			      			<!--<td><strong>Total</strong></td>-->
-			      			<!--<td align="right"><strong>$24.99</strong></td>-->
-			      		<!--</tr>-->
-			      	<!--</table>-->
-			      <!--</p>-->
-					<!--<button type="button" class="btn btn-large btn-block btn-success" name="addToTheBag" id="addToTheBag">Add to bag <i class="icon-briefcase icon-white"></i></button>-->
-		      <!--</div>-->
-		    <!--</div>-->
 
-		  <!--</div>-->
 
-		<!--</section>-->
-    <!--</div>&lt;!&ndash; /container &ndash;&gt;-->
+		    <div class="span3">
+		      <div class="well">
+		      	<h3>Total Prices</h3>
+			      <p>
+			      	<table class="table">
+			      		<tr>
+			      			<td>Phone Case</td>
+			      			<td align="right">$19.99</td>
+			      		</tr>
+			      		<tr>
+			      			<td>Head Phone</td>
+			      			<td align="right">$4.99</td>
+			      		</tr>
+			      		<tr>
+			      			<td><strong>Total</strong></td>
+			      			<td align="right"><strong>$24.99</strong></td>
+			      		</tr>
+			      	</table>
+			      </p>
+					<button type="button" class="btn btn-large btn-block btn-success" name="addToTheBag" id="addToTheBag">Add to bag <i class="icon-briefcase icon-white"></i></button>
+		      </div>
+		    </div>
+
+
+
+		</section>
+    </div><!-- /container -->
 
 <!-- Footer ================================================== -->
       <footer class="footer">      
@@ -333,6 +336,7 @@
 
 
 <form id="wtf"></form>
+
 
   </body>
 </html>

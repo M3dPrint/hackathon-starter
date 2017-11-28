@@ -95,8 +95,8 @@ function applyFilter(index, filter) {
         $("#phoneTypes").change(function (e) {
             debugger;
             if ($(this).val() == "1") {
-                $("#phoneDiv").css('height', '590');
-                $("#phone")[0].src = "/img/phones/iphone5A.png";
+                // $("#phoneDiv").css('height', '590');
+                // $("#phone")[0].src = "/img/phones/iphone5A.png";
                 //$("#borderMask")[0].src = "/img/phones/iphone5Mask.png";
                 line1 = new fabric.Line([0, 0, 225, 0], {
                     "stroke": "#000000",
@@ -253,11 +253,49 @@ function applyFilter(index, filter) {
             //  document.getElementById("phoneDiv").style.backgroundImage="url("+ design +")";
         });
 
+        // canvas.setBackgroundImage('/img/phones/iPhone5A.png', {
+        //     backgroundImageOpacity: 0.5,
+        //     backgroundImageStretch: false,
+        //     backgroundRepeat: 'no-repeat',
+        //     backgroundPosition: 'top center',
+        //     backgroundsize: '100% 100%',
+        //     setHeight:window.innerHeight,
+        //     setWidth: window.innerWidth
+        // });
+        // canvas.renderAll();
+
+        var t
+        fabric.Image.fromURL('/img/phones/iPhone5A.png', function(img) {
+            // img.set('left', 1024/2).set('top', 600/2).set('zindex', 10);
+            img.set({
+                left: canvas.getWidth() / 2, top: canvas.getHeight() / 2,
+                scaleX: canvas.getWidth() / img.width,
+                scaleY: canvas.getHeight() / img.height,
+                zIndex:1,
+
+            })
+
+            canvas.add(img).bringToFront(img); ;
+            canvas.renderAll();
+            t=img;
+
+        });
+
+
+
+
+
+
+
         // $("div.input-append").on('click','inputname="image_file[]"',function(e){
         $("#imgparent").on("click", "img.imgclass", function (e) {
             var el = e.target;
             var design = $(this).attr("src");
            console.log("working something");
+
+
+
+
             fabric.Image.fromURL(design, function (myImg) {
                 // //i create an extra var for to change some image properties
                  var myImg = myImg.set({
@@ -274,19 +312,10 @@ function applyFilter(index, filter) {
                      //     originY: 'top'
                      });
                      // canvas.setBackgroundImage(myImg, canvas.renderAll.bind(canvas));
-                     canvas.add(myImg);
-                canvas.setBackgroundImage(myImg, canvas.renderAll.bind(canvas), {
-                    backgroundImageOpacity: 0.5
-                    , backgroundImageStretch: false
-                });
 
+                      canvas.add(myImg);
 
-
-
-
-
-
-                myImg.filters.push(new fabric.Image.filters.Grayscale());
+                      myImg.filters.push(new fabric.Image.filters.Grayscale());
                 // // myImg.scaleToWidth(canvas.getWidth());
                 // //myImg.setWidth(1000);
                 // // myImg.setHeight(100);
@@ -308,14 +337,15 @@ function applyFilter(index, filter) {
                         top: 150,
                         stroke: 'red'
                     }));
+                    canvas.bringToFront(t)
+
 
                     canvas.renderAll()
                 }, 3000)
                 canvas.renderAll();
-
-
+                });
             });
-        });
+
         $('#png').on('click', function (e) {
             canvas.renderAll();
 
@@ -477,24 +507,24 @@ function applyFilter(index, filter) {
                 }
             });
 
-            //canvas.add(new fabric.fabric.Object({hasBorders:true,hasControls:false,hasRotatingPoint:false,selectable:false,type:'rect'}));
-            $("#drawingArea").hover(
-                function () {
-                    canvas.add(line1);
-                    canvas.add(line2);
-                    canvas.add(line3);
-                    canvas.add(line4);
-                    canvas.renderAll();
-                },
-                function () {
-                    canvas.remove(line1);
-                    canvas.remove(line2);
-                    canvas.remove(line3);
-                    canvas.remove(line4);
-                    canvas.renderAll();
-                }
-            );
+        // canvas.add(new fabric.fabric.Object({hasBorders:true,hasControls:false,hasRotatingPoint:false,selectable:false,type:'rect'}));
 
+        $("#drawingArea").hover(
+            function () {
+                canvas.add(line1);
+                canvas.add(line2);
+                canvas.add(line3);
+                canvas.add(line4);
+                canvas.renderAll();
+            },
+            function () {
+                canvas.remove(line1);
+                canvas.remove(line2);
+                canvas.remove(line3);
+                canvas.remove(line4);
+                canvas.renderAll();
+            }
+        );
             $('.color-preview').click(function () {
                 var color = $(this).css("background-color");
                 document.getElementById("phoneDiv").style.backgroundColor = color;
