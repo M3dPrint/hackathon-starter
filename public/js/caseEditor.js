@@ -259,16 +259,33 @@ function applyFilter(index, filter) {
             var design = $(this).attr("src");
            console.log("working something");
             fabric.Image.fromURL(design, function (myImg) {
-                //i create an extra var for to change some image properties
-                var myImg = myImg.set({
-                    left: canvas.getWidth() / 2, top: canvas.getHeight() / 2,
-                    scaleX: canvas.getWidth() / myImg.width,
-                    scaleY: canvas.getHeight() / myImg.height,
-                    originX: 'left',
-                    scaleX : canvas.getWidth()/img.width,   //new update
-                    scaleY: canvas.getHeight()/img.height,   //new update
-                    originY: 'top'
+                // //i create an extra var for to change some image properties
+                 var myImg = myImg.set({
+                     left: canvas.getWidth() / 2, top: canvas.getHeight() / 2,
+                     scaleX: canvas.getWidth() / myImg.width,
+                     scaleY: canvas.getHeight() / myImg.height
+                     //     // originX: 'left',
+                     //     // foriginY: 'top'
+                     //     width: canvas.getWidth(),
+                     //     height: canvas.getHeight(),
+                     //
+                     //     scaleX : canvas.getWidth()/myImg.width, //new update
+                     //     scaleY: canvas.getHeight()/myImg.height, //new update
+                     //     originY: 'top'
+                     });
+                     // canvas.setBackgroundImage(myImg, canvas.renderAll.bind(canvas));
+                     canvas.add(myImg);
+                canvas.setBackgroundImage(myImg, canvas.renderAll.bind(canvas), {
+                    backgroundImageOpacity: 0.5
+                    , backgroundImageStretch: false
                 });
+
+
+
+
+
+
+
                 myImg.filters.push(new fabric.Image.filters.Grayscale());
                 // // myImg.scaleToWidth(canvas.getWidth());
                 // //myImg.setWidth(1000);

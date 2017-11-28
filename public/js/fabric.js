@@ -2926,8 +2926,7 @@ fabric.util.string = {
      * @memberOf fabric.util
      * @param {String} url URL of a script to load
      * @param {Function} callback Callback to execute when script is finished loading
-     */
-    function getScript(url, callback) {
+     */function getScript(url, callback) {
     	var headEl = fabric.document.getElementsByTagName("head")[0],
     	    scriptEl = fabric.document.createElement('script'), 
     	    loading = true;
