@@ -1,5 +1,6 @@
 "use strict";
 var fs = require('fs');
+var im = require('imagemagick');
 var ImageTracer = require("imagetracerjs");
 const multer = require('multer');
 
@@ -40,6 +41,42 @@ exports.uploadFinal = (req, res) => {
 
     // console.log()
 
+    function uploadFile(filename){
+        var PNGReader = require('../node_modules/imagetracerjs/nodetest/PNGReader');
+        fs.readFile(require("path").join(__dirname,("/../"+filename)), // Input file path
+            function (err, bytes) {
+                if (err) {
+                    throw err;
+                }
+                var reader = new PNGReader(bytes);
+                reader.parse(function (err, png) {
+                    if (err) {
+                        throw err;
+                    }
+                    // creating an ImageData object
+                    var myImageData = {width: png.width, height: png.height, data: png.pixels};
+                    // tracing to SVG string
+                    var options = {ltres: 0.1}; // optional
+                    var svgstring = ImageTracer.imagedataToSVG(myImageData, options);
+                    // writing to file
+                    fs.writeFile(
+                        './public/svgdownload' + '/' + Date.now()+'.svg', // Output file path
+                        svgstring,
+                        function (err)
+                        {
+                            if (err) {
+                                throw err;
+                            }
+                            console.log('public/svgdownload' + '/test1.svg was saved!' + Date.now());
+                        }
+                    );
+                });// End of reader.parse()
+            }// End of readFile callback()
+    );// End of fs.readFile()
+ }
+
+
+
     upload(req, res, function (err) {
         // console.log(arguments);
         console.log(req.files, req.body)
@@ -53,41 +90,26 @@ exports.uploadFinal = (req, res) => {
         }
         else {
             // return res.json({file: ""})
+var filename = 'public/downloads/overlay_removed_'+ Date.now()+".png";
+            im.convert(['public/uploads/'+ req.files[0].filename, '-compose', 'ChangeMask','test/iPhone5A.png','-composite',filename ],
+                function(err, stdout){
+                    if (err) throw err;
+                    console.log('stdout:', stdout);
 
-            var PNGReader = require('../node_modules/imagetracerjs/nodetest/PNGReader');
-            fs.readFile(require("path").join(__dirname,"/../public/uploads/"+ req.files[0].filename), // Input file path
-                function (err, bytes) {
-                    if (err) {
-                        throw err;
-                    }
+                    // setTimeout(
+                    uploadFile(filename)
+                    // , 3000);
 
-                    var reader = new PNGReader(bytes);
-                    reader.parse(function (err, png) {
-                        if (err) {
-                            throw err;
-                        }
-                        // creating an ImageData object
-                        var myImageData = {width: png.width, height: png.height, data: png.pixels};
-                        // tracing to SVG string
-                        var options = {ltres: 0.1}; // optional
-                        var svgstring = ImageTracer.imagedataToSVG(myImageData, options);
-                        // writing to file
-                        fs.writeFile(
-                            './public/downloads' + '/test1.svg'+ Date.now(), // Output file path
-                            svgstring,
-                            function (err) {
-                                if (err) {
-                                    throw err;
-                                }
-                                console.log('public/downloads' + '/test1.svg was saved!' + Date.now());
-                            }
-                        );
-                    });// End of reader.parse()
-                }// End of readFile callback()
-            );// End of fs.readFile()
+                });
+
+
+                console.log("going to convert to svg" );
+
+
         }
     });
 }
+
 
 
 

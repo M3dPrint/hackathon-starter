@@ -274,10 +274,11 @@ function applyFilter(index, filter) {
                 zIndex:1,
 
             })
+            img.selectable = false
             canvas.add(img).bringToFront(img); ;
             canvas.renderAll();
             t=img;
-            t.selectable = false;
+
 
         });
         // canvas.lockMovementX = canvas.lockMovementY = true;
@@ -339,10 +340,7 @@ function applyFilter(index, filter) {
                     //     top: 150,
                     //     stroke: 'red'
                     // }));
-
-
-
-                    canvas.renderAll()
+                canvas.renderAll()
                 }, 3000)
                 canvas.renderAll();
                 });
@@ -359,7 +357,24 @@ function applyFilter(index, filter) {
                 request.open("POST", "/uploadFinal", true);
                 request.send(form);
             }, "image/png");
-})
+    });
+
+
+        // $('#prev').on('click', function (e) {
+        //     canvas.renderAll();
+        //
+        //     // var cvas = document.getElementById('tcanvas');
+        //     // cvas.toBlob(function (blob) {
+        //     //     var form = new FormData(),
+        //     //         request = new XMLHttpRequest();
+        //     //     form.append("file", blob, "filename.png");
+        //     //     request.open("POST", "/uploadFinal", true);
+        //     //     request.send(form);
+        //     // }, "image/png");
+        // });
+
+
+
 
         document.getElementById('remove-selected').onclick = function () {
                 var activeObject = canvas.getActiveObject(),
