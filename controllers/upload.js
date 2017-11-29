@@ -9,7 +9,7 @@ var storage = multer.diskStorage({
         cb(null, 'public/uploads')
     },
     filename: function (req, file, cb) {
-        cb(null, file.fieldname + '-' + Date.now()+'.png')
+        cb(null, Date.now() + "_canvasupload.png")
     }
 });
 // console.log(Date.now());
@@ -39,6 +39,9 @@ exports.upload = (req, res) => {
 
 exports.uploadFinal = (req, res) => {
 
+
+    var uniqstr = Date.now();
+
     // console.log()
 
     function uploadFile(filename){
@@ -60,7 +63,7 @@ exports.uploadFinal = (req, res) => {
                     var svgstring = ImageTracer.imagedataToSVG(myImageData, options);
                     // writing to file
                     fs.writeFile(
-                        './public/svgdownload' + '/' + Date.now()+'.svg', // Output file path
+                        './public/uploads/' +uniqstr+'_vector.svg', // Output file path
                         svgstring,
                         function (err)
                         {
@@ -89,9 +92,12 @@ exports.uploadFinal = (req, res) => {
             console.log("upload final working");
         }
         else {
+
+
+            console.log(req.files[0])
             // return res.json({file: ""})
-var filename = 'public/downloads/overlay_removed_'+ Date.now()+".png";
-            im.convert(['public/uploads/'+ req.files[0].filename, '-compose', 'ChangeMask','test/iPhone5A.png','-composite',filename ],
+var filename = 'public/uploads/'+ uniqstr+"_bgremoved.png";
+            im.convert(['public/uploads/'+ req.files[0].filename, '-compose', 'ChangeMask','public/img/phones/iPhone5A700x1470.png','-composite',filename ],
                 function(err, stdout){
                     if (err) throw err;
                     console.log('stdout:', stdout);

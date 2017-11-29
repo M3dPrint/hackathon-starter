@@ -265,7 +265,7 @@ function applyFilter(index, filter) {
         // canvas.renderAll();
 
         var t
-        fabric.Image.fromURL('/img/phones/iPhone5A.png', function(img) {
+        fabric.Image.fromURL('/img/phones/iPhone5A700x1470.png', function(img) {
             // img.set('left', 1024/2).set('top', 600/2).set('zindex', 10);
             img.set({
                 left: canvas.getWidth() / 2, top: canvas.getHeight() / 2,
