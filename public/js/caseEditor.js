@@ -19,6 +19,41 @@ function applyFilter(index, filter) {
     // canvas.renderAll();
 }
  	$(document).ready(function() {
+
+
+
+        $("form#data").submit(function(event){
+
+            event.preventDefault();
+
+            var url  = 'http://localhost:8080/upload';
+            var image_file = $('#image_file').get(0).files[0];
+
+            var formData = new FormData();
+            formData.append("file", image_file);
+            console.log(image_file)
+
+            $.ajax(
+                {
+                    url: url,
+                    type: 'POST',
+                    data: formData,
+//                    async: false,
+                    cache: false,
+                    contentType: false,
+                    processData: false,
+                    success: function (status) {
+                        console.log(arguments)
+                        // do something on success
+                    }
+                }).done(function (){
+                console.log(arguments)
+
+                $("#imgid").after("<img class='imgclass'   class='new-image' src=/uploads/"+ arguments[0].file+">");
+            } );
+            return false;
+        });
+
         //setup front side canvas
         canvas = new fabric.Canvas('tcanvas', {
             hoverCursor: 'pointer',
@@ -269,13 +304,13 @@ function applyFilter(index, filter) {
             // img.set('left', 1024/2).set('top', 600/2).set('zindex', 10);
             img.set({
                 left: canvas.getWidth() / 2, top: canvas.getHeight() / 2,
-                scaleX: canvas.getWidth() / img.width,
-                scaleY: canvas.getHeight() / img.height,
-                zIndex:1,
+                // scaleX: canvas.getWidth() / img.width,
+                // scaleY: canvas.getHeight() / img.height,
+                zIndex:10,
 
             })
-            img.selectable = false
-            canvas.add(img).bringToFront(img); ;
+            img.selectable = false;
+            canvas.add(img).bringToFront(img);
             canvas.renderAll();
             t=img;
 
@@ -674,5 +709,4 @@ function applyFilter(index, filter) {
 //                     console.log("Request finished.");
 //                 }
 //             });
-
 

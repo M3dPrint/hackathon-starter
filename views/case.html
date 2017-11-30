@@ -149,8 +149,8 @@
 				     </div>				   
 				    <div class="tab-pane active" id="tab2">
 						<div class="well" style="height:1000px;" id="imgparent">
-				    		<div class="input-append"  id="imgid" >
-								<!--<img style="cursor:pointer;width:90px;height:120px;" class="img-polaroid" src="/img/phones/designs/8.jpg">-->
+
+                            <div class="input-append"  id="imgid" >
 							  <input class="span2" id="text-string" type="text" placeholder="add text here..."><button id="add-text" class="btn" title="Add text"><i class="icon-share-alt"></i></button>
 							  <hr>
 
@@ -163,7 +163,9 @@
 							  <hr>
 
 							</div>
-							<!--//<img  class="imgclass" src="/download.png">-->
+							<!--//<img  src="/download.png">-->
+							<img class="imgclass"  style="cursor:pointer;width:90px;height:120px;" src="/img/phones/designs/8.jpg">
+
 							<hr>
 							<div id="new-div">
                               <button id="png" class="btn btn-lg btn-primary" >Upload </button>
@@ -192,12 +194,12 @@
 				  </div>
 				</div>
 				</div>
-		    </div>		
-		    <div class="span6">		    
+		    </div>
+		    <div class="span6">
 		    		<div align="center" style="min-height: 32px;">
 		    			<div class="clearfix">
-							<div class="btn-group inline pull-left" id="texteditor" style="display:none;">							  
-								<button id="font-family" class="btn dropdown-toggle" data-toggle="dropdown" title="Font Style"><i class="icon-font" style="width:19px;height:19px;"></i></button>		                      
+							<div class="btn-group inline pull-left" id="texteditor" style="display:none;">
+								<button id="font-family" class="btn dropdown-toggle" data-toggle="dropdown" title="Font Style"><i class="icon-font" style="width:19px;height:19px;"></i></button>
 							    <ul class="dropdown-menu" role="menu" aria-labelledby="font-family-X">
 								    <li><a tabindex="-1" href="#" onclick="setFont('Arial');" class="Arial">Arial</a></li>
 								    <li><a tabindex="-1" href="#" onclick="setFont('Helvetica');" class="Helvetica">Helvetica</a></li>
@@ -221,16 +223,16 @@
 							 	<a class="btn" href="#" rel="tooltip" data-placement="top" data-original-title="Font Color"><input type="hidden" id="text-fontcolor" class="color-picker" size="7" value="#000000"></a>
 						 		<a class="btn" href="#" rel="tooltip" data-placement="top" data-original-title="Font Border Color"><input type="hidden" id="text-strokecolor" class="color-picker" size="7" value="#000000"></a>
 								  <!--- Background <input type="hidden" id="text-bgcolor" class="color-picker" size="7" value="#ffffff"> --->
-							</div>							  
-							<div class="pull-right" align="" id="imageeditor" style="display:none;">					  
-							  <div class="btn-group">										      
+							</div>
+							<div class="pull-right" align="" id="imageeditor" style="display:none;">
+							  <div class="btn-group">
 							      <button class="btn" id="bring-to-front" title="Bring to Front"><i class="icon-fast-backward rotate" style="height:19px;"></i></button>
-							      <button class="btn" id="send-to-back" title="Send to Back"><i class="icon-fast-forward rotate" style="height:19px;"></i></button>							      
+							      <button class="btn" id="send-to-back" title="Send to Back"><i class="icon-fast-forward rotate" style="height:19px;"></i></button>
 							      <button id="remove-selected" class="btn" title="Delete selected item"><i class="icon-trash" style="height:19px;"></i></button>
 							  </div>
-							</div>			  
-						</div>												
-					</div>					  		
+							</div>
+						</div>
+					</div>
 				<!--	EDITOR      -->
 				<div style="background-color: #ffffff;position: relative; top:20px;height:1470px;">
 					<div id="phoneDiv" class="page" style="width: 700px; height: 1470px; position: absolute;left:25%; background-color: rgb(255, 255, 255);">
@@ -298,44 +300,6 @@
   })();
 
 </script>
-  <script>
-      //        $(function() {
-
-      $("form#data").submit(function(event){
-
-          event.preventDefault();
-
-          var url  = 'http://localhost:8080/upload';
-          var image_file = $('#image_file').get(0).files[0];
-
-          var formData = new FormData();
-          formData.append("file", image_file);
-          console.log(image_file)
-
-          $.ajax(
-              {
-              url: url,
-              type: 'POST',
-              data: formData,
-//                    async: false,
-              cache: false,
-              contentType: false,
-              processData: false,
-              success: function (status) {
-                  console.log(arguments)
-                  // do something on success
-              }
-          }).done(function (){
-              console.log(arguments)
-
-			  $("#imgid").after("<img class='imgclass'   class='new-image' src=/uploads/"+ arguments[0].file+">");
-		  } );
-          return false;
-      });
-
-      //        });
-
-  </script>
 
 
 
