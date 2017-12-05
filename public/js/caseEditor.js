@@ -306,7 +306,9 @@ function applyFilter(index, filter) {
                 left: canvas.getWidth() / 2, top: canvas.getHeight() / 2,
                 // scaleX: canvas.getWidth() / img.width,
                 // scaleY: canvas.getHeight() / img.height,
-                zIndex:10,
+                zIndex:1,
+
+                //backgroundColor : "#fff"
 
             })
             img.selectable = false;
@@ -328,11 +330,7 @@ function applyFilter(index, filter) {
             var el = e.target;
             var design = $(this).attr("src");
            console.log("working something");
-
-
-
-
-            fabric.Image.fromURL(design, function (myImg) {
+           fabric.Image.fromURL(design, function (myImg) {
                 // //i create an extra var for to change some image properties
                  var myImg = myImg.set({
                      left: canvas.getWidth() / 2, top: canvas.getHeight() / 2,
@@ -348,14 +346,14 @@ function applyFilter(index, filter) {
                      //     originY: 'top'
                      });
                      // canvas.setBackgroundImage(myImg, canvas.renderAll.bind(canvas));
+               canvas.add(myImg);
 
-                      canvas.add(myImg);
-
-                      myImg.filters.push(new fabric.Image.filters.Grayscale());
+                       myImg.filters.push(new fabric.Image.filters.Grayscale());
+                      // myImg.filters.push(new fabric.Image.filters.toBlackWhite());
                 // // myImg.scaleToWidth(canvas.getWidth());
                 // //myImg.setWidth(1000);
                 // // myImg.setHeight(100);
-                //
+
                 myImg.applyFilters();
                 myImg.applyFilters(canvas.renderAll.bind(canvas));
                 canvas.add(myImg)

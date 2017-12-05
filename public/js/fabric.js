@@ -12589,6 +12589,9 @@ fabric.Image.filters.Grayscale.fromObject = function() {
   return new fabric.Image.filters.Grayscale();
 };
 
+
+
+
 /**
  * @class fabric.Image.filters.RemoveWhite
  * @memberOf fabric.Image.filters
